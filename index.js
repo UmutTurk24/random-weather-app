@@ -9,9 +9,14 @@ const cookieParser = require('cookie-parser');
 const navigator = new Navigator();
 const app = express();
 const port = 3000;
+const db_name = "local_weather";
 
 const d_url = 'mongodb+srv://umut1656:mycoolapp@cluster0.8w0gcuf.mongodb.net/?retryWrites=true&w=majority';
+
+// const d_url = "mongodb+srv://umut1656:mycoolapp@clustername.mongodb.net/test?retryWrites=true&w=majority&useNewUrlParser=true&useUnifiedTopology=true";
 const client = new MongoClient(d_url);
+
+
 
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main',
@@ -40,7 +45,7 @@ const weather_data = function (req, res, next) {
                     const weather_description = body1.weather[0].description;
                     const icon_type = body1.weather[0].icon;
                     const town_name = body.locality;
-                    const temperature = body1.main.temp;
+                    const temperature = body1.main.temp - 270;
 
                     const ret_value = [temperature, town_name, weather_description, icon_type];
                     req.weather_data = ret_value;
@@ -56,24 +61,55 @@ app.use(cookieParser());
 
 app.get('/',  (req, res, next) => {
     const cur_data = req.weather_data;
-    console.log(cur_data);
+    const page_data = add_get_data(cur_data).catch(console.dir);
+    page_data.then((success) => {
+        // console.log(success);
+        
+    })
+    
+    // console.log(cur_data);
 })
+
+async function run_database() {
+    try {
+        // Connection Establisher
+        await client.connect();
+        console.log("Connected correctly to server");
+        
+    } catch (err) {
+        console.log(err.stack);
+    }
+    finally {
+        // await client.close();
+    }
+}
+
+async function add_get_data(cur_data) {
+    try {
+        const db = client.db(db_name);
+        const col = db.collection("weather_entries");
+
+        let client_info = {
+            "temperature": cur_data[0],
+            "town": cur_data[1],                                                                                                                                 
+            "weather_d": cur_data[2],                                                                                                                                
+            "icon": cur_data[3]
+        }
+        const p = await col.insertOne(client_info);
+        const myDoc = await col.find().limit(9).sort({$natural:-1}).toArray(function (err, data) {
+            // console.log(data);
+        });
+        return myDoc;
+        // Print to the console
+        // console.log(myDoc);
+    } catch (err) {
+        console.log(err.stack);
+    }
+}
 
 app.listen(port, () => {
     console.log( `Express started on http://localhost:${port}` +
       '; press Ctrl-C to terminate.' );
-
-    async function run() {
-        try {
-            await client.connect();
-            console.log("Connected correctly to server");
-        } catch (err) {
-            console.log(err.stack);
-        }
-        finally {
-            await client.close();
-        }
-    }
-
-    run().catch(console.dir);
+    run_database().catch(console.dir);
+    
 })
