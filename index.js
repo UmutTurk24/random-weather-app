@@ -1,16 +1,23 @@
 const express = require('express');
-const expressHandlebars = require('express-handlebars');
+// const expressHandlebars = require('express-handlebars').engine;
 const unirest = require("unirest"); // For retrieving the geo-location
 const { Navigator } = require("node-navigator");
-const navigator = new Navigator();
 const request = require('request');
+const { MongoClient } = require("mongodb");
+const cookieParser = require('cookie-parser');
 
-const port = 3000;
+const navigator = new Navigator();
 const app = express();
+const port = 3000;
 
-app.engine('handlebars', expressHandlebars({
-    defaultLayout: 'main',
-}))
+const d_url = 'mongodb+srv://umut1656:mycoolapp@cluster0.8w0gcuf.mongodb.net/?retryWrites=true&w=majority';
+const client = new MongoClient(d_url);
+
+// configure Handlebars view engine
+// app.engine('handlebars', expressHandlebars({
+//     defaultLayout: 'main',
+//   }));
+// app.set('view engine', 'handlebars')
 
 const weather_data = function (req, res, next) {
     navigator.geolocation.getCurrentPosition((success, error) => {
@@ -52,13 +59,37 @@ const weather_data = function (req, res, next) {
 }
 
 app.use(weather_data);
+app.use(cookieParser());
 
-app.get('/',  (req, res) => {
+app.get('/',  (req, res, next) => {
     const cur_data = req.weather_data;
-    // console.log(cur_data);
-})
+    console.log(weather_data);
+    // if (req.cookie.hasVisited) {
+    //     res.redirect('/app');
+    // } else {
+    //     res.cookie('hasVisited', 'True');
+    // }
+});
+
+// app.get('/app', (req, res) => {
+//     res.render('about', { fortune: randomFortune });
+// });
 
 app.listen(port, () => {
     console.log( `Express started on http://localhost:${port}` +
-      '; press Ctrl-C to terminate.' )
+      '; press Ctrl-C to terminate.' );
+
+    async function run() {
+        try {
+            await client.connect();
+            console.log("Connected correctly to server");
+        } catch (err) {
+            console.log(err.stack);
+        }
+        finally {
+            await client.close();
+        }
+    }
+
+    run().catch(console.dir);
 })

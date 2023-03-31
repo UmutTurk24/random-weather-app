@@ -10,10 +10,16 @@
   "license": "ISC",
   "dependencies": {
     "@bigdatacloudapi/client": "^1.1.3",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.4",
+    "mongodb": "^5.1.0",
     "node-navigator": "^1.0.1",
     "request": "^2.88.2",
     "unirest": "^0.6.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.1"
   }
 }
