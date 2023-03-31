@@ -20,8 +20,11 @@ const client = new MongoClient(d_url);
 
 app.engine('handlebars', expressHandlebars({
     defaultLayout: 'main',
+    layoutsDir: __dirname + '/views/layouts',
 }))
 app.set('view engine', 'handlebars')
+app.use(express.static(__dirname + '/public'))
+
 
 
 const weather_data = function (req, res, next) {
@@ -45,9 +48,11 @@ const weather_data = function (req, res, next) {
                     const weather_description = body1.weather[0].description;
                     const icon_type = body1.weather[0].icon;
                     const town_name = body.locality;
-                    const temperature = body1.main.temp - 270;
+                    const temperature = Math.ceil(body1.main.temp - 270);
+                    const temperature_min = Math.ceil(body1.main.temp_min - 270);
+                    const temperature_max = Math.ceil(body1.main.temp_max - 270);
 
-                    const ret_value = [temperature, town_name, weather_description, icon_type];
+                    const ret_value = [temperature, town_name, weather_description, icon_type, temperature_min, temperature_max];
                     req.weather_data = ret_value;
                     next();
                 });
@@ -61,10 +66,11 @@ app.use(cookieParser());
 
 app.get('/',  (req, res, next) => {
     const cur_data = req.weather_data;
-    const page_data = add_get_data(cur_data).catch(console.dir);
-    page_data.then((success) => {
-        // console.log(success);
-        
+    const db_data = add_get_data(cur_data).catch(console.dir);
+    db_data.then((success) => {
+        console.log(success);
+        res.render('app', {layout : 'main', page_data: success});
+
     })
     
     // console.log(cur_data);
@@ -93,7 +99,9 @@ async function add_get_data(cur_data) {
             "temperature": cur_data[0],
             "town": cur_data[1],                                                                                                                                 
             "weather_d": cur_data[2],                                                                                                                                
-            "icon": cur_data[3]
+            "icon": cur_data[3],
+            "temperature_max": cur_data[4],
+            "temperature_min": cur_data[5],
         }
         const p = await col.insertOne(client_info);
         const myDoc = await col.find().limit(9).sort({$natural:-1}).toArray(function (err, data) {

@@ -1,12 +1,24 @@
 <!doctype html>
 <html>
   <head>
-    <title></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <img src="../../public/img/logo.png" alt="Weird Weather App">
+    <link rel="stylesheet" type="text/css" href ="./style.css">
+    <title>Weird Weather App</title>
   </head>
-  <body>
-    <header>
-      <img src="/img/logo.png" alt="Meadowlark Travel Logo">
-    </header>
-    {{{body}}}
+  <body class = "h-screen">
+    <div class = "py-1 mt-6 mx-16 bg-sky-300 border border-sky-500">
+      <div>
+        <h2 class = "text-center text-xl">
+          Random Weather Collection
+        </h2>
+      </div>
+      <div class = "border border-sky-500 grid grid-cols-3 gap-4 place-content-evenly">
+        {{{body}}}
+      </div>
+    </div>
+    
   </body>
 </html>

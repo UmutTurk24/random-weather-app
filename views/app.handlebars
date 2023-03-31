@@ -1,0 +1,14 @@
+{{#each page_data}}
+    <div class = "border-4 rounded-lg" style = "margin: 1em auto;">
+        <div class = "h-40 w-40">
+            <p class = "ml-2 mt-2 text-lg">{{this.town}}</p>
+            <p class = "ml-2 mb-6 text-xl">{{this.temperature}}℃</p>
+            <p class = "ml-2 text-base">{{this.icon}}
+                <img src="./img/{{{this.icon}}}">
+            </p>
+            <p class = "ml-2 text-sm">{{this.weather_d}}</p>
+            <p class = "ml-2 text-xs">High: {{this.temperature_max}}℃, Low: {{this.temperature_min}}℃</p>
+            
+        </div>
+    </div>
+{{/each}}
