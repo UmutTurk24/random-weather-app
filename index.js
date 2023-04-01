@@ -45,12 +45,20 @@ const weather_data = function (req, res, next) {
                     if (err) { return console.log(err); }
 
                     // Organize variables
-                    const weather_description = body1.weather[0].description;
+                    var weather_description = body1.weather[0].description;
                     const icon_type = body1.weather[0].icon;
                     const town_name = body.locality;
                     const temperature = Math.ceil(body1.main.temp - 270);
                     const temperature_min = Math.ceil(body1.main.temp_min - 270);
                     const temperature_max = Math.ceil(body1.main.temp_max - 270);
+
+                    // Format decription string
+                    const words = weather_description.split(" ");
+                    for (let i = 0; i < words.length; i++) {
+                        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+                    }
+                    weather_description = words.join(" ");
+
 
                     const ret_value = [temperature, town_name, weather_description, icon_type, temperature_min, temperature_max];
                     req.weather_data = ret_value;

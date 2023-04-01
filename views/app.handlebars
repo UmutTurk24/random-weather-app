@@ -1,10 +1,10 @@
 {{#each page_data}}
-    <div class = "border-4 rounded-lg" style = "margin: 1em auto;">
-        <div class = "h-40 w-40">
-            <p class = "ml-2 mt-2 text-lg">{{this.town}}</p>
-            <p class = "ml-2 mb-6 text-xl">{{this.temperature}}℃</p>
-            {{!-- <p class = "ml-2 text-base">{{this.icon}} --}}
-                <img src="./img/{{{this.icon}}}.jpeg">
+    <div style = "margin: 1em auto;">
+        <div class = "drop-shadow-md h-40 w-40 rounded-lg bg-gradient-to-b from-sky-600 from-0% to-sky-400 to-25%">
+            <p class = "ml-2 mt-2 text-lg pt-3 leading-6">{{this.town}}</p>
+            <p class = "ml-2 mb-5 text-2xl">{{this.temperature}}℃</p>
+            <p class = "ml-2 text-base">
+                <img src="./img/{{{this.icon}}}.jpeg" class = "rounded-md border border-slate-500">
             </p>
             <p class = "ml-2 text-sm">{{this.weather_d}}</p>
             <p class = "ml-2 text-xs">High: {{this.temperature_max}}℃, Low: {{this.temperature_min}}℃</p>
