@@ -48,9 +48,9 @@ const weather_data = function (req, res, next) {
                     var weather_description = body1.weather[0].description;
                     const icon_type = body1.weather[0].icon;
                     const town_name = body.locality;
-                    const temperature = Math.ceil(body1.main.temp - 270);
-                    const temperature_min = Math.ceil(body1.main.temp_min - 270);
-                    const temperature_max = Math.ceil(body1.main.temp_max - 270);
+                    const temperature = Math.ceil(body1.main.temp - 273);
+                    const temperature_min = Math.ceil(body1.main.temp_min - 273);
+                    const temperature_max = Math.ceil(body1.main.temp_max - 273);
 
                     // Format decription string
                     const words = weather_description.split(" ");
