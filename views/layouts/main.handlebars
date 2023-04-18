@@ -1,24 +1,241 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="icon" type="image/x-icon" href="./img/logo.png">
-    <link rel="stylesheet" type="text/css" href ="./style.css">
-    <title>Weird Weather App</title>
-  </head>
-  <body class = "h-screen" style="background-image: url('./img/bground.jpg'); background-size: cover;">
-    <div class = "py-1 mt-6 mx-16 bg-sky-300/75 border-4 ring-1 rounded-lg border-sky-500/75 min-w-[50%]">
-      <div>
-        <h2 class = "my-2 text-center text-xl">
-          Random Weather Collection
-        </h2>
-      </div>
-      <div class = "border-t-2 border-sky-500 grid grid-cols-3 gap-4 place-content-evenly">
-        {{{body}}}
-      </div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./img/logo.png">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <link rel="stylesheet" type="text/css" href="./snow-style.css">
+
+  <title>Weird Weather App</title>
+</head>
+<style>
+  /* customizable snowflake styling */
+  .snowflake {
+    color: #fff;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    text-shadow: 0 0 5px #000;
+  }
+
+  @-webkit-keyframes snowflakes-fall {
+    0% {
+      top: -10%
+    }
+
+    100% {
+      top: 100%
+    }
+  }
+
+  @-webkit-keyframes snowflakes-shake {
+
+    0%,
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0)
+    }
+
+    50% {
+      -webkit-transform: translateX(80px);
+      transform: translateX(80px)
+    }
+  }
+
+  @keyframes snowflakes-fall {
+    0% {
+      top: -10%
+    }
+
+    100% {
+      top: 100%
+    }
+  }
+
+  @keyframes snowflakes-shake {
+
+    0%,
+    100% {
+      transform: translateX(0)
+    }
+
+    50% {
+      transform: translateX(80px)
+    }
+  }
+
+  .snowflake {
+    position: fixed;
+    top: -10%;
+    z-index: 9999;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    -webkit-animation-name: snowflakes-fall, snowflakes-shake;
+    -webkit-animation-duration: 10s, 3s;
+    -webkit-animation-timing-function: linear, ease-in-out;
+    -webkit-animation-iteration-count: infinite, infinite;
+    -webkit-animation-play-state: running, running;
+    animation-name: snowflakes-fall, snowflakes-shake;
+    animation-duration: 10s, 3s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-play-state: running, running
+  }
+
+  .snowflake:nth-of-type(0) {
+    left: 1%;
+    -webkit-animation-delay: 0s, 0s;
+    animation-delay: 0s, 0s
+  }
+
+  .snowflake:nth-of-type(1) {
+    left: 10%;
+    -webkit-animation-delay: 1s, 1s;
+    animation-delay: 1s, 1s
+  }
+
+  .snowflake:nth-of-type(2) {
+    left: 20%;
+    -webkit-animation-delay: 6s, .5s;
+    animation-delay: 6s, .5s
+  }
+
+  .snowflake:nth-of-type(3) {
+    left: 30%;
+    -webkit-animation-delay: 4s, 2s;
+    animation-delay: 4s, 2s
+  }
+
+  .snowflake:nth-of-type(4) {
+    left: 40%;
+    -webkit-animation-delay: 2s, 2s;
+    animation-delay: 2s, 2s
+  }
+
+  .snowflake:nth-of-type(5) {
+    left: 50%;
+    -webkit-animation-delay: 8s, 3s;
+    animation-delay: 8s, 3s
+  }
+
+  .snowflake:nth-of-type(6) {
+    left: 60%;
+    -webkit-animation-delay: 6s, 2s;
+    animation-delay: 6s, 2s
+  }
+
+  .snowflake:nth-of-type(7) {
+    left: 70%;
+    -webkit-animation-delay: 2.5s, 1s;
+    animation-delay: 2.5s, 1s
+  }
+
+  .snowflake:nth-of-type(8) {
+    left: 80%;
+    -webkit-animation-delay: 1s, 0s;
+    animation-delay: 1s, 0s
+  }
+
+  .snowflake:nth-of-type(9) {
+    left: 90%;
+    -webkit-animation-delay: 3s, 1.5s;
+    animation-delay: 3s, 1.5s
+  }
+
+  .snowflake:nth-of-type(10) {
+    left: 25%;
+    -webkit-animation-delay: 2s, 0s;
+    animation-delay: 2s, 0s
+  }
+
+  .snowflake:nth-of-type(11) {
+    left: 65%;
+    -webkit-animation-delay: 4s, 2.5s;
+    animation-delay: 4s, 2.5s
+  }
+</style>
+<div class="snowflakes" aria-hidden="true">
+  <div class="snowflake">
+    ❅
+  </div>
+  <div class="snowflake">
+    ❆
+  </div>
+  <div class="snowflake">
+    ❅
+  </div>
+  <div class="snowflake">
+    ❆
+  </div>
+  <div class="snowflake">
+    ❅
+  </div>
+  <div class="snowflake">
+    ❆
+  </div>
+  <div class="snowflake">
+    ❅
+  </div>
+  <div class="snowflake">
+    ❆
+  </div>
+  <div class="snowflake">
+    ❅
+  </div>
+  <div class="snowflake">
+    ❆
+  </div>
+  <div class="snowflake">
+    ❅
+  </div>
+  <div class="snowflake">
+    ❆
+  </div>
+</div>
+
+{{!-- <style>
+img:hover {
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+</style> --}}
+
+<body class="h-screen" style="background-image: url('./img/bground.jpg'); background-size: cover;">
+
+  <div class="py-1 mt-6 mx-16 bg-sky-300/75 border-4 ring-1 rounded-lg border-sky-500/75 min-w-[50%]">
+    <div>
+      <h2 class="my-2 text-center text-xl">
+        Random Weather Collection
+      </h2>
     </div>
     
-  </body>
+    
+    <div class="border-t-2 border-sky-500 grid grid-cols-3 gap-4 place-content-evenly">
+      {{{body}}}
+    </div>
+  </div>
+  <canvas id = "game" width="640" height="640" style="position:relative; bottom:650px; left: 100px; z-index: 20;"></canvas>
+  <script src="./secret-game.js"></script>
+
+</body>
+
 </html>
