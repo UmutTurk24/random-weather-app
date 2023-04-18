@@ -88,7 +88,11 @@ function loop() {
       snake.maxCells++;
 
       // animation for shaking the screen
-      shake(canvas);
+      var boxes = document.getElementsByClassName('w-box');
+      for(var i = 0; i < boxes.length; i++) {
+        shake(boxes[i]);
+        }
+    //   shake(boxes);
       
       // canvas is 400x400 which is 25x25 grids 
       apple.x = getRandomInt(5, 35) * grid;
