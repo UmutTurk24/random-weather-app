@@ -8,8 +8,10 @@
   <link rel="icon" type="image/x-icon" href="./img/logo.png">
   <link rel="stylesheet" type="text/css" href="./style.css">
   <link rel="stylesheet" type="text/css" href="./snow-style.css">
+  <link href="./cool-box.css" rel="stylesheet">
 
-  <title>Weird Weather App</title>
+
+  <title>Social Weather App</title>
 </head>
 <style>
   /* customizable snowflake styling */
@@ -198,33 +200,14 @@
   </div>
 </div>
 
-{{!-- <style>
-img:hover {
-  animation: shake 0.5s;
-  animation-iteration-count: infinite;
-}
 
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-</style> --}}
 
 <body class="h-screen" style="background-image: url('./img/bground.jpg'); background-size: cover;">
 
-  <div class="py-1 mt-6 mx-16 bg-sky-300/75 border-4 ring-1 rounded-lg border-sky-500/75 min-w-[50%]">
+  <div class="py-1 mt-6 h-[44rem] w-[44rem] ml-16 bg-sky-300/75 border-4 ring-1 rounded-lg border-sky-500/75">
     <div>
       <h2 class="my-2 text-center text-xl">
-        Random Weather Collection
+        Social Weather Collection
       </h2>
     </div>
     
@@ -233,8 +216,10 @@ img:hover {
       {{{body}}}
     </div>
   </div>
-  <canvas id = "game" width="640" height="640" style="position:relative; bottom:650px; left: 100px; z-index: 20;"></canvas>
-  <script src="./secret-game.js"></script>
+  {{!-- <canvas id = "game" width="640" height="640" style="position:relative; bottom:650px; left: 100px; z-index: 20;"></canvas> --}}
+  {{!-- <script src="./secret-game.js"></script> --}}
+  <canvas id = "game" width="650" height="800" style="position:absolute; top:100px; left: 80px; z-index: 20;"></canvas>
+  <script src="./figure-game.js"></script>
 
 </body>
 

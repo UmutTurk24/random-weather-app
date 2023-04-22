@@ -76,7 +76,7 @@ app.get('/',  (req, res, next) => {
     const cur_data = req.weather_data;
     const db_data = add_get_data(cur_data).catch(console.dir);
     db_data.then((success) => {
-        console.log(success);
+        // console.log(success);
         res.render('app', {layout : 'main', page_data: success});
 
     })
